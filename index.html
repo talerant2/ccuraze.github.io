@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>darkness project</title>
+    <meta name="viewport" content="width=500.0, initial-scale=0.65, maximum-scale=1.0, user-scalable=yes">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&family=Press+Start+2P&display=swap');
+        
+        body {
+            font-family: 'Orbitron', sans-serif;
+            background-color: #0a050f;
+            color: #e0d6ff;
+            position: relative;
+        }
+        
+        .glow-text {
+            text-shadow: 0 0 8px #9d4dff, 0 0 16px #7b2cbf;
+        }
+        
+        .neon-border {
+            border: 2px solid #9d4dff;
+            box-shadow: 0 0 10px #9d4dff, inset 0 0 10px #9d4dff;
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { opacity: 0.8; }
+            50% { opacity: 0.4; }
+            100% { opacity: 0.8; }
+        }
+        
+        .flicker {
+            animation: flicker 3s infinite alternate;
+        }
+        
+        @keyframes flicker {
+            0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+                opacity: 1;
+                text-shadow: 0 0 8px #9d4dff, 0 0 16px #7b2cbf;
+            }
+            20%, 24%, 55% {
+                opacity: 0.6;
+                text-shadow: none;
+            }
+        }
+        
+        .bg-texture {
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(157, 77, 255, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(157, 77, 255, 0.05) 0%, transparent 20%),
+                linear-gradient(to bottom, rgba(10, 5, 15, 0.9), rgba(10, 5, 15, 0.95));
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .bg-texture::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: 
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect width="100" height="100" fill="none" stroke="%239d4dff" stroke-width="0.5" stroke-dasharray="2 2"/></svg>') repeat,
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><path d="M0,0 L200,200 M200,0 L0,200" stroke="%239d4dff" stroke-width="0.3" opacity="0.1"/></svg>') repeat;
+            opacity: 0.15;
+            pointer-events: none;
+        }
+        
+        .tape {
+            position: absolute;
+            width: 100%;
+            height: 30px;
+            background: repeating-linear-gradient(
+                45deg,
+                #9d4dff,
+                #9d4dff 10px,
+                #7b2cbf 10px,
+                #7b2cbf 20px
+            );
+            opacity: 0.3;
+            transform: rotate(-2deg);
+            z-index: 10;
+        }
+        
+        .tape::after {
+            content: "darkness project";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 12px;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px black;
+            letter-spacing: 2px;
+        }
+        
+        .chain {
+            position: absolute;
+            width: 100px;
+            height: auto;
+            opacity: 0.5;
+            z-index: 5;
+        }
+        
+        .btn-neon {
+            position: relative;
+            background: transparent;
+            color: #e0d6ff;
+            border: 2px solid #9d4dff;
+            padding: 10px 20px;
+            font-weight: bold;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            transition: all 0.3s;
+            overflow: hidden;
+        }
+        
+        .btn-neon:hover {
+            color: #fff;
+            background: #9d4dff;
+            box-shadow: 0 0 10px #9d4dff, 0 0 20px #9d4dff, 0 0 40px #9d4dff;
+        }
+        
+        .btn-neon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(157, 77, 255, 0.4), transparent);
+            transition: 0.5s;
+        }
+        
+        .btn-neon:hover::before {
+            left: 100%;
+        }
+        
+        .radioactive {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: 
+                radial-gradient(circle, rgba(157, 77, 255, 0.3) 0%, transparent 70%),
+                url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="%239d4dff" stroke-width="8"/><circle cx="50" cy="50" r="10" fill="%239d4dff"/><line x1="50" y1="10" x2="50" y2="40" stroke="%239d4dff" stroke-width="8"/><line x1="50" y1="60" x2="50" y2="90" stroke="%239d4dff" stroke-width="8"/><line x1="10" y1="50" x2="40" y2="50" stroke="%239d4dff" stroke-width="8"/><line x1="60" y1="50" x2="90" y2="50" stroke="%239d4dff" stroke-width="8"/><line x1="20" y1="20" x2="35" y2="35" stroke="%239d4dff" stroke-width="8"/><line x1="65" y1="65" x2="80" y2="80" stroke="%239d4dff" stroke-width="8"/><line x1="20" y1="80" x2="35" y2="65" stroke="%239d4dff" stroke-width="8"/><line x1="65" y1="35" x2="80" y2="20" stroke="%239d4dff" stroke-width="8"/></svg>');
+            background-size: contain;
+            animation: spin 8s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .scanlines {
+            position: sticky;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                linear-gradient(to bottom, 
+                    rgba(10, 5, 15, 0) 0%, 
+                    rgba(157, 77, 255, 0.05) 50%, 
+                    rgba(10, 5, 15, 0) 100%);
+            background-size: 100% 4px;
+            pointer-events: none;
+            z-index: 100;
+            animation: scanline 8s linear infinite;
+        }
+        
+        @keyframes scanline {
+            0% { background-position: 0 0; }
+            100% { background-position: 0 100%; }
+        }
+        
+        .typewriter {
+    display: block;
+
+            overflow: hidden;
+            border-right: 3px solid #9d4dff;
+            white-space: nowrap;
+            margin: 0 auto;
+            letter-spacing: 2px;
+            animation: 
+                typing 3.5s steps(40, end),
+                blink-caret 0.75s step-end infinite;
+        }
+        
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #9d4dff; }
+        }
+    </style>
+</head>
+<body class="bg-texture min-h-screen">
+    <div class="scanlines"></div>
+    
+
+    <div class="tape top-0"></div>
+    
+
+    <div class="tape bottom-0"></div>
+    
+
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'><path d='M10,10 L20,10 C25,10 25,20 20,20 L10,20 C5,20 5,30 10,30 L20,30 C25,30 25,40 20,40 L10,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M30,10 L40,10 C45,10 45,20 40,20 L30,20 C25,20 25,30 30,30 L40,30 C45,30 45,40 40,40 L30,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M50,10 L60,10 C65,10 65,20 60,20 L50,20 C45,20 45,30 50,30 L60,30 C65,30 65,40 60,40 L50,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M70,10 L80,10 C85,10 85,20 80,20 L70,20 C65,20 65,30 70,30 L80,30 C85,30 85,40 80,40 L70,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M90,10 L90,40' stroke='%239d4dff' stroke-width='2' fill='none'/></svg>" 
+         class="chain top-10 left-10" alt="Chain decoration">
+    
+    <img src="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 50'><path d='M10,10 L20,10 C25,10 25,20 20,20 L10,20 C5,20 5,30 10,30 L20,30 C25,30 25,40 20,40 L10,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M30,10 L40,10 C45,10 45,20 40,20 L30,20 C25,20 25,30 30,30 L40,30 C45,30 45,40 40,40 L30,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M50,10 L60,10 C65,10 65,20 60,20 L50,20 C45,20 45,30 50,30 L60,30 C65,30 65,40 60,40 L50,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M70,10 L80,10 C85,10 85,20 80,20 L70,20 C65,20 65,30 70,30 L80,30 C85,30 85,40 80,40 L70,40' stroke='%239d4dff' stroke-width='2' fill='none'/><path d='M90,10 L90,40' stroke='%239d4dff' stroke-width='2' fill='none'/></svg>" 
+         class="chain top-10 right-10" alt="Chain decoration">
+    
+
+    <div class="radioactive top-20 left-20"></div>
+    <div class="radioactive bottom-20 right-20"></div>
+    
+    <div class="container mx-auto px-4 py-16 relative z-20">
+        <div class="max-w-3xl mx-auto">
+         
+<header class="text-center mb-12">
+    <h1 class="text-4xl md:text-6xl font-bold mb-4 glow-text flicker">
+        <span class="typewriter">
+            darkness<br>project
+        </span>
+    </h1>
+
+
+
+                <div class="w-full h-1 bg-gradient-to-r from-transparent via-purple-600 to-transparent my-6"></div>
+                <p class="text-xl md:text-2xl italic glow-text pulse">
+                       В цифровых джунглях информация - это оружие, а OSINT - его заточка.
+                </p>
+            </header>
+            
+         
+            <main class="neon-border rounded-lg p-6 md:p-8 backdrop-blur-sm bg-black bg-opacity-40 mb-12">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    
+                    <div class="md:col-span-2">
+                        <h2 class="text-3xl font-bold mb-4 glow-text">Информация</h2>
+                        
+                        <div class="space-y-6">
+                            
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2 glow-text">Владелец:</h3>
+                                <p class="text-lg">x void</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2 glow-text">Со-владелец:</h3>
+                                <p class="text-lg">Покровский</p>
+                            </div>
+                            
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2 glow-text">Описание:</h3>
+                                <p class="text-lg opacity-90">
+                                    Специализированный проект в области OSINT и киберразведки, 
+                                    фокусирующийся на анализе цифровых следов и скрытых взаимосвязей.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h2 class="text-3xl font-bold mb-4 glow-text">ДОСТУП</h2>
+                        
+                        <div class="space-y-4">
+                            <a href="https://t.me/+5guoxZ72KQ01NDJi" class="btn-neon block text-center transition-all duration-300 hover:scale-105">
+                                <i class="fab fa-telegram mr-2"></i> Основной канал
+                            </a>
+                            
+                            
+                            <a href="https://t.me/myVoidrussia" class="btn-neon block text-center transition-all duration-300 hover:scale-105">
+                                <i class="fas fa-user-secret mr-2"></i> Владелец
+                            </a>
+                            
+                            <a href="https://t.me/ccuraze" class="btn-neon block text-center transition-all duration-300 hover:scale-105">
+                                <i class="fas fa-users mr-2"></i> Со-владелец
+                            </a>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <h3 class="text-xl font-semibold mb-3 glow-text">Статус:</h3>
+                            <div class="flex items-center">
+                                <div class="w-3 h-3 rounded-full bg-purple-500 mr-2 animate-pulse"></div>
+                                <span>Активен</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+            
+            <footer class="text-center text-sm opacity-70">
+                <p>© 2033 darkness project. Все права защищены вашей матерью.</p>
+                <p class="mt-1">Доступ ограничен. .</p>
+            </footer>
+        </div>
+    </div>
+    
+    <div class="absolute bottom-0 left-1/4 transform -translate-x-1/2 w-0 h-0 
+                border-l-[30px] border-r-[30px] border-b-[60px] border-l-transparent 
+                border-r-transparent border-b-purple-700 opacity-40"></div>
+    
+    <div class="absolute bottom-0 right-1/4 transform translate-x-1/2 w-0 h-0 
+                border-l-[30px] border-r-[30px] border-b-[60px] border-l-transparent 
+                border-r-transparent border-b-purple-700 opacity-40"></div>
+</body>
+</html>
